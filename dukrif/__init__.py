@@ -17,13 +17,19 @@ class DuKRIF_animation():
     """Methods to manage animations"""
 
     @staticmethod
-    def hasKeyframeAtTime(parentNode, frameNumber):
+    def hasKeyframeAtTime(parentNode, frameNumber, visibleNodesOnly=True ):
         """Checks if the node or one of its children has a keyframe at the given frame number"""
+
+        if not parentNode.visible():
+            return False
+
         if parentNode.hasKeyframeAtTime(frameNumber):
             return True
+
         for node in parentNode.childNodes():
             if DuKRIF_animation.hasKeyframeAtTime(node, frameNumber):
                 return True
+
         return False
 
 class DuKRIF_json():
