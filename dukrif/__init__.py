@@ -85,4 +85,7 @@ class DuKRIF_json():
         nodeInfo['colorLabel'] = node.colorLabel()
         nodeInfo['opacity'] = node.opacity()
         nodeInfo['visible'] = node.visible()
+        nodeInfo['passThrough'] = False
+        if node.type() == 'grouplayer':
+            nodeInfo['passThrough'] = node.passThroughMode()
         return nodeInfo
