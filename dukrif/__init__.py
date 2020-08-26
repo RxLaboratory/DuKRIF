@@ -71,7 +71,7 @@ class DuKRIF_json():
         nodeInfo['frames'] = []
         nodeInfo['childNodes'] = []
         nodeInfo['type'] = node.type()
-        nodeInfo['blendingMode'] = 'normal'
+        nodeInfo['blendingMode'] = node.blendingMode()
         nodeInfo['animated'] = node.animated()
         nodeInfo['anchorPoint'] = node.bounds().center()
         nodeInfo['width'] = node.bounds().width()
