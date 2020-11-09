@@ -80,10 +80,10 @@ class DuKRIF_json():
         docInfo['height'] = document.height()
         docInfo['startTime'] = document.fullClipRangeStartTime()
         docInfo['endTime'] = document.fullClipRangeEndTime()
-        docInfo['nodes'] = []
         docInfo['colorDepth'] = document.colorDepth()
         bgColor = document.backgroundColor()
-        docInfo['backgroundColor'] = [ bgColor.red(), bgColor.green(), bgColor.blue(), bgColor.alpha() ]
+        docInfo['backgroundColor'] = [ bgColor.redF(), bgColor.greenF(), bgColor.blueF(), bgColor.alphaF() ]
+        docInfo['layers'] = []
         return docInfo
 
     @staticmethod
@@ -92,16 +92,19 @@ class DuKRIF_json():
         nodeInfo = {}
         nodeInfo['name'] = name
         nodeInfo['frames'] = []
-        nodeInfo['childNodes'] = []
+        nodeInfo['childLayers'] = []
         nodeInfo['type'] = nodeType
+        nodeInfo['fileType'] = ""
         nodeInfo['blendingMode'] = 'normal'
         nodeInfo['animated'] = False
         nodeInfo['position'] = [ 0, 0 ]
         nodeInfo['width'] = 0
         nodeInfo['height'] = 0
-        nodeInfo['colorLabel'] = -1
-        nodeInfo['opacity'] = 255
+        nodeInfo['label'] = -1
+        nodeInfo['opacity'] = 1.0
         nodeInfo['visible'] = True
+        nodeInfo['reference'] = False
+        nodeInfo['passThrough'] = False
         return nodeInfo
 
     @staticmethod
@@ -110,8 +113,9 @@ class DuKRIF_json():
         nodeInfo = {}
         nodeInfo['name'] = node.name()
         nodeInfo['frames'] = []
-        nodeInfo['childNodes'] = []
+        nodeInfo['childLayers'] = []
         nodeInfo['type'] = node.type()
+        nodeInfo['fileType'] = ""
         nodeInfo['blendingMode'] = node.blendingMode()
         nodeInfo['animated'] = node.animated()
         nodeInfo['position'] = [ node.bounds().center().x(), node.bounds().center().y() ]
@@ -121,10 +125,11 @@ class DuKRIF_json():
             nodeInfo['position'] = [ document.width() / 2, document.height() / 2 ]
             nodeInfo['width'] = document.width()
             nodeInfo['height'] = document.height()
-        nodeInfo['colorLabel'] = node.colorLabel()
-        nodeInfo['opacity'] = node.opacity()
+        nodeInfo['label'] = node.colorLabel()
+        nodeInfo['opacity'] = node.opacity() / 255.0
         nodeInfo['visible'] = node.visible()
         nodeInfo['passThrough'] = False
+        nodeInfo['reference'] = False
         if node.type() == 'grouplayer':
             nodeInfo['passThrough'] = node.passThroughMode()
         return nodeInfo
@@ -136,10 +141,11 @@ class DuKRIF_json():
         frameInfo['name'] = name
         frameInfo['fileName'] = fileName
         frameInfo['frameNumber'] = frameNumber
-        frameInfo['opacity'] = 255
+        frameInfo['opacity'] = 1.0
         frameInfo['position'] = [0,0]
         frameInfo['width'] = 0
         frameInfo['height'] = 0
+        frameInfo['duration'] = 1
 
         return frameInfo
 
@@ -152,7 +158,7 @@ class DuKRIF_json():
         frameInfo['name'] = '{0}_{1}'.format( node.name(), DuKRIF_utils.intToStr(frameNumber))
         frameInfo['fileName'] = ''
         frameInfo['frameNumber'] = frameNumber
-        frameInfo['opacity'] = node.opacity()
+        frameInfo['opacity'] = node.opacity() / 255.0
         if useDocumentSize:
             frameInfo['position'] = [ document.width() / 2, document.height() / 2 ]
             frameInfo['width'] = document.width()
@@ -161,6 +167,7 @@ class DuKRIF_json():
             frameInfo['position'] = [ node.bounds().center().x(), node.bounds().center().y() ]
             frameInfo['width'] = node.bounds().width()
             frameInfo['height'] = node.bounds().height()
+        frameInfo['duration'] = 1
 
         return frameInfo
 
