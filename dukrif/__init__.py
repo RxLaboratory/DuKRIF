@@ -20,7 +20,7 @@
 
 import time
 import krita # pylint: disable=import-error
-from PyQt5.QtCore import (Qt, QRect) # pylint: disable=no-name-in-module
+from PyQt5.QtCore import (Qt, QRect) # pylint: disable=no-name-in-module # pylint: disable=import-error
 
 class DuKRIF_info():
     """This class contains useful information about DuKRIF"""
@@ -133,6 +133,10 @@ class DuKRIF_json():
         nodeInfo['reference'] = False
         if node.type() == 'grouplayer':
             nodeInfo['passThrough'] = node.passThroughMode()
+            nodeInfo['width'] = document.width()
+            nodeInfo['height'] = document.height()
+            nodeInfo['position'] = [ document.width() / 2, document.height() / 2 ]
+
         return nodeInfo
 
     @staticmethod
