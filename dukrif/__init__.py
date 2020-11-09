@@ -84,6 +84,7 @@ class DuKRIF_json():
         bgColor = document.backgroundColor()
         docInfo['backgroundColor'] = [ bgColor.redF(), bgColor.greenF(), bgColor.blueF(), bgColor.alphaF() ]
         docInfo['layers'] = []
+        docInfo['originApp'] = 'Krita'
         return docInfo
 
     @staticmethod
