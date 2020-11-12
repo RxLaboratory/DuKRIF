@@ -26,7 +26,7 @@ class DuKRIF_info():
     """This class contains useful information about DuKRIF"""
 
     def __init__(self):
-        self.version = "0.0.1"
+        self.version = "0.0.2"
         self.about = """DuKRIF - The Duduf Krita Framework
             A Python framework used in the developement of Krita Plugins"""
         self.license = "GNU-GPL v3"
@@ -85,6 +85,7 @@ class DuKRIF_json():
         docInfo['backgroundColor'] = [ bgColor.redF(), bgColor.greenF(), bgColor.blueF(), bgColor.alphaF() ]
         docInfo['layers'] = []
         docInfo['originApp'] = 'Krita'
+        docInfo['originAppVersion'] = krita.Krita.instance().version()
         return docInfo
 
     @staticmethod
