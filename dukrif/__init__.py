@@ -106,6 +106,7 @@ class DuKRIF_json():
         nodeInfo['visible'] = True
         nodeInfo['reference'] = False
         nodeInfo['passThrough'] = False
+        nodeInfo['inheritAlpha'] = False
         return nodeInfo
 
     @staticmethod
@@ -131,6 +132,7 @@ class DuKRIF_json():
         nodeInfo['visible'] = node.visible()
         nodeInfo['passThrough'] = False
         nodeInfo['reference'] = False
+        nodeInfo['inheritAlpha'] = node.inheritAlpha()
         if node.type() == 'grouplayer':
             nodeInfo['passThrough'] = node.passThroughMode()
             nodeInfo['width'] = document.width()
