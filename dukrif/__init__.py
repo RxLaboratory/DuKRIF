@@ -67,6 +67,21 @@ class DuKRIF_animation():
 
         return False
 
+class DuKRIF_nodes():
+    """Methods for layers"""
+
+    @staticmethod
+    def flattenNode(document, node, nodeIndex, parentNode):
+        # create a layer right under
+        mergeNode = document.createNode(node.name(), 'paintlayer')
+        if nodeIndex > 0:
+            aboveNode = parentNode.childNodes()[nodeIndex-1]
+        else:
+            aboveNode = None
+        parentNode.addChildNode(mergeNode, aboveNode)
+        node.mergeDown()
+        return parentNode.childNodes()[nodeIndex]
+
 class DuKRIF_json():
     """Methods used to export and manage JSON files"""
 
