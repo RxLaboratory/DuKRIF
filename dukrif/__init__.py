@@ -129,7 +129,7 @@ class DuKRIF_json():
     def getNodeInfo(document, node):
         """Constructs a new node info based on a given node"""
         nodeInfo = {}
-        nodeInfo['name'] = node.name()
+        nodeInfo['name'] = node.name().strip()
         nodeInfo['frames'] = []
         nodeInfo['childLayers'] = []
         nodeInfo['type'] = node.type()
