@@ -82,6 +82,17 @@ class DuKRIF_nodes():
         node.mergeDown()
         return parentNode.childNodes()[nodeIndex]
 
+    @staticmethod
+    def disableIgnoreNodes(parentNode, disable=True):
+        """Disables all nodes containing '_ignore_' in their name."""
+        for node in parentNode.childNodes():
+            if node.visible():
+                if '_ignore_' in node.name():
+                    node.setVisible(not disable)
+
+                if node.type() == 'grouplayer':
+                    DuKRIF_nodes.disableIgnoreNodes(node)
+
 class DuKRIF_json():
     """Methods used to export and manage JSON files"""
 
