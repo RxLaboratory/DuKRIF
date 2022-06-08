@@ -137,7 +137,7 @@ class DuKRIF_json():
         return nodeInfo
 
     @staticmethod
-    def getNodeInfo(document, node):
+    def getNodeInfo(document, node, useDocumentSize = False):
         """Constructs a new node info based on a given node"""
         nodeInfo = {}
         nodeInfo['name'] = node.name().strip()
@@ -147,13 +147,14 @@ class DuKRIF_json():
         nodeInfo['fileType'] = ""
         nodeInfo['blendingMode'] = node.blendingMode()
         nodeInfo['animated'] = node.animated()
-        nodeInfo['position'] = [ node.bounds().center().x(), node.bounds().center().y() ]
-        nodeInfo['width'] = node.bounds().width()
-        nodeInfo['height'] = node.bounds().height()
-        if (node.animated()):
+        if useDocumentSize or node.animated():
             nodeInfo['position'] = [ document.width() / 2, document.height() / 2 ]
             nodeInfo['width'] = document.width()
             nodeInfo['height'] = document.height()
+        else:
+            nodeInfo['position'] = [ node.bounds().center().x(), node.bounds().center().y() ]
+            nodeInfo['width'] = node.bounds().width()
+            nodeInfo['height'] = node.bounds().height()
         nodeInfo['label'] = node.colorLabel()
         nodeInfo['opacity'] = node.opacity() / 255.0
         nodeInfo['visible'] = node.visible()
