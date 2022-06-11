@@ -72,15 +72,13 @@ class DuKRIF_nodes():
 
     @staticmethod
     def flattenNode(document, node, nodeIndex, parentNode):
-        # create a layer right under
+        # create a layer right above the node to merge
         mergeNode = document.createNode(node.name(), 'paintlayer')
-        if nodeIndex > 0:
-            aboveNode = parentNode.childNodes()[nodeIndex-1]
-        else:
-            aboveNode = None
-        parentNode.addChildNode(mergeNode, aboveNode)
-        node.mergeDown()
-        return parentNode.childNodes()[nodeIndex]
+        parentNode.addChildNode(mergeNode, node)
+        mergeNode.mergeDown()
+        newNode = parentNode.childNodes()[nodeIndex]
+        print("Merged: " + node.name() + " --- New node: " + newNode.name() + " (" + newNode.type() + ")")
+        return newNode
 
     @staticmethod
     def disableIgnoreNodes(parentNode, disable=True):
